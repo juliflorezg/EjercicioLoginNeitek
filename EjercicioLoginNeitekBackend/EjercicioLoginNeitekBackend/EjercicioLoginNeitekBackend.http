@@ -1,0 +1,6 @@
+@EjercicioLoginNeitekBackend_HostAddress = http://localhost:5134
+
+GET {{EjercicioLoginNeitekBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
