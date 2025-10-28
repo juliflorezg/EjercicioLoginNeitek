@@ -32,7 +32,7 @@ builder.Services.AddAuthentication(opt =>
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<IJwtService, JwtService>();
 
 builder.Services.AddControllers();
 

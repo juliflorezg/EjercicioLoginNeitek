@@ -7,11 +7,11 @@ namespace EjercicioLoginNeitekBackend.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController(
-        [FromKeyedServices("UserService")] IUserService userService, JwtService jwtService) : ControllerBase
+        [FromKeyedServices("UserService")] IUserService userService, IJwtService jwtService) : ControllerBase
     {
 
         private readonly IUserService _userService = userService;
-        private readonly JwtService _jwtService = jwtService;
+        private readonly IJwtService _jwtService = jwtService;
 
         [HttpPost("signup")]
         public async Task<ActionResult<UserDTO>> SignUp([FromBody] UserCreateDTO userCreateDTO)

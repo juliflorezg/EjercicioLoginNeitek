@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace EjercicioLoginNeitekBackend.Services
 {
-    public class JwtService(IConfiguration config)
+    public class JwtService(IConfiguration config) : IJwtService
     {
         private readonly IConfiguration _config = config;
 
