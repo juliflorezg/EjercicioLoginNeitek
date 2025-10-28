@@ -4,11 +4,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ZodType } from "zod";
 import { useState } from "react";
 
+interface Option {
+  value: string;
+  label: string;
+}
+
 interface Field {
   name: string;
   label: string;
   type: string;
   placeholder?: string;
+  options?: Option[];
 }
 
 interface FormProps<T extends FieldValues> {
@@ -29,12 +35,26 @@ export function Form<T extends FieldValues>({ fields, schema, onSubmit }: FormPr
         <div key={f.name} className="max-w-2xs">
           <label className="block text-left mb-1 text-xs font-medium">{f.label}</label>
           <div className="relative">
-            <input
-              {...register(f.name as any)}
-              type={f.type === 'password' ? (showPassword ? 'text' : 'password') : f.type}
-              placeholder={f.placeholder}
-              className="border p-1 rounded-sm w-full text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none"
-            />
+            {f.type === 'select' && f.options ? (
+              <select
+                {...register(f.name as any)}
+                className="border p-1 rounded-sm w-full text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white"
+              >
+                <option value="">Selecciona una opción</option>
+                {f.options.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <input
+                {...register(f.name as any)}
+                type={f.type === 'password' ? (showPassword ? 'text' : 'password') : f.type}
+                placeholder={f.placeholder}
+                className="border p-1 rounded-sm w-full text-sm shadow-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              />
+            )}
             {f.type === 'password' && (
               <button
                 type="button"

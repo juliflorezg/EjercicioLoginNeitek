@@ -11,7 +11,15 @@ export default function Signup() {
   const fields = [
     { name: "email", label: "Correo", type: "email" },
     { name: "password", label: "Contraseña", type: "password" },
-    { name: "userType", label: "Tipo de Usuario", type: "text" },
+    {
+      name: "userType",
+      label: "Tipo de Usuario",
+      type: "select",
+      options: [
+        { value: "customer", label: "Cliente" },
+        { value: "admin", label: "Administrador" }
+      ]
+    },
   ];
 
   return (
