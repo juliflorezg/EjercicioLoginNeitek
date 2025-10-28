@@ -17,6 +17,10 @@ namespace EjercicioLoginNeitekBackend.Models
                 .Property(u => u.Id)
                 .ValueGeneratedOnAdd();
 
+            modelBuilder.Entity<UserType>().HasData(
+            new UserType { Id = 1, Type = "Admin", Description = "Admin user" },
+            new UserType { Id = 2, Type = "Customer", Description = "Customer user" }
+    );
 
             modelBuilder.Entity<UserType>()
                 .HasIndex(u => u.Type)
