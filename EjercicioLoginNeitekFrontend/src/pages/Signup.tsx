@@ -14,12 +14,10 @@ export default function Signup() {
   ];
 
   return (
-    <div className="p-0 sm:p-4 md:p-10 min-h-screen flex flex-col items-center justify-start sm:justify-center">
-
+    <div className="p-0 sm:p-4 md:p-10 min-h-screen sm:min-w-96 flex flex-col items-center justify-start sm:justify-center">
       <Logo />
-
       <div>
-        <h1 className="text-xl sm:text-2xl font-semibold mb-8 text-center">Registro</h1>
+        <h1 className="text-2xl font-semibold mb-8 text-center">Registro</h1>
         <Form
           fields={fields}
           schema={signupSchema}

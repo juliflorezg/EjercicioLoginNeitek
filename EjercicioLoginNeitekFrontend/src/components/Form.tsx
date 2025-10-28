@@ -27,7 +27,7 @@ export function Form<T extends FieldValues>({ fields, schema, onSubmit }: FormPr
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 w-full max-w-sm sm:px-4 px-0 ">
       {fields.map(f => (
         <div key={f.name} className="max-w-2xs">
-          <label className="block text-left mb-2 text-sm font-medium">{f.label}</label>
+          <label className="block text-left mb-1 text-xs font-medium">{f.label}</label>
           <div className="relative">
             <input
               {...register(f.name as any)}
@@ -39,7 +39,7 @@ export function Form<T extends FieldValues>({ fields, schema, onSubmit }: FormPr
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition-colors cursor-pointer touch-manipulation"
+                className="absolute right-1 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition-colors cursor-pointer touch-manipulation"
               >
                 {showPassword ? (
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -55,7 +55,7 @@ export function Form<T extends FieldValues>({ fields, schema, onSubmit }: FormPr
             )}
           </div>
           {errors[f.name as keyof T] && (
-            <p className="text-red-500 max-w-48 text-xs mt-1 text-left">
+            <p className="text-red-500 max-w-48 text-xs  text-left">
               {(errors[f.name as keyof T] as any)?.message}
             </p>
           )}
