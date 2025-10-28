@@ -7,10 +7,11 @@ namespace EjercicioLoginNeitekBackend.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController(
-        [FromKeyedServices("UserService")] IUserService userService) : ControllerBase
+        [FromKeyedServices("UserService")] IUserService userService, JwtService jwtService) : ControllerBase
     {
 
         private readonly IUserService _userService = userService;
+        private readonly JwtService _jwtService = jwtService;
 
         [HttpPost("signup")]
         public async Task<ActionResult<UserDTO>> SignUp([FromBody] UserCreateDTO userCreateDTO)
@@ -30,16 +31,19 @@ namespace EjercicioLoginNeitekBackend.Controllers
         {
             var user = _userService.GetByEmail(loginDTO);
 
-            if (user == null) return BadRequest("Invalid credentials");
+            if (user == null) return BadRequest("Credenciales invalidas");
 
             bool isPassWordCorrect = _userService.ValidatePassword(loginDTO);
 
-            if ((isPassWordCorrect))
+            if (isPassWordCorrect)
             {
-                return Ok();
+                var userTypeName = await _userService.GetUserTypeNameById(user);
+                var token = _jwtService.GenerateToken(user.Id, user.Email, userTypeName);
+
+                return Ok(new { token });
             }
 
-            return Unauthorized("Invalid credentials");
+            return Unauthorized("Credenciales invalidas");
         }
     }
 }
