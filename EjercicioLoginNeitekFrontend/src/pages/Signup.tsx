@@ -1,6 +1,8 @@
 import { Form } from "../components/Form";
 import { signupSchema } from "../utils/validators";
 import { useAuth } from "../hooks/useAuth";
+import Logo from "../components/Logo";
+
 
 export default function Signup() {
   const { signup } = useAuth();
@@ -12,13 +14,18 @@ export default function Signup() {
   ];
 
   return (
-    <div className="p-10">
-      <h1 className="text-2xl mb-4">Registro</h1>
-      <Form
-        fields={fields}
-        schema={signupSchema}
-        onSubmit={signup}
-      />
+    <div className="p-0 sm:p-4 md:p-10 min-h-screen flex flex-col items-center justify-start sm:justify-center">
+
+      <Logo />
+
+      <div>
+        <h1 className="text-xl sm:text-2xl font-semibold mb-8 text-center">Registro</h1>
+        <Form
+          fields={fields}
+          schema={signupSchema}
+          onSubmit={signup}
+        />
+      </div>
     </div>
   );
 }
