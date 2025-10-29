@@ -25,7 +25,7 @@ export default function Signup() {
   return (
     <>
       <Header />
-      <div className="p-0 sm:p-4 md:p-10 min-h-screen sm:min-w-96 flex flex-col items-center justify-start ">
+      <div className="p-0 sm:p-4 md:p-10 min-h-screen sm:min-w-96 flex flex-col items-center justify-start">
         <Logo />
         <div>
           <h1 className="text-2xl font-semibold mb-8 text-center">Registro</h1>

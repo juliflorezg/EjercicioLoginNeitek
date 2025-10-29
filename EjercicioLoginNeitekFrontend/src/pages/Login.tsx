@@ -15,7 +15,7 @@ export default function Login() {
   return (
     <>
       <Header />
-      <div className="p-0 sm:p-4 md:p-10 min-h-screen flex flex-col items-center justify-start sm:justify-center">
+      <div className="p-0 sm:p-4 md:p-10 min-h-screen sm:min-w-96 flex flex-col items-center justify-start">
         <Logo />
         <div>
           <h1 className="text-xl sm:text-2xl font-semibold mb-8 text-center">Iniciar Sesión</h1>
