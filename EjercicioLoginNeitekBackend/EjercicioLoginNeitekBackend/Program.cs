@@ -32,33 +32,46 @@ builder.Services.AddAuthentication(opt =>
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddScoped<IJwtService, JwtService>();
-
-builder.Services.AddControllers();
-
 builder.Services.AddDbContext<UserContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("UsersConnection")));
+
 
 builder.Services.AddScoped<IRepository<User, Guid>, UserRepository>();
 builder.Services.AddScoped<IRepository<UserType, int>, UserTypeRepository>();
 builder.Services.AddKeyedScoped<IUserService, UserService>("UserService");
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<IJwtService, JwtService>();
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins("http://localhost:5173", "https://nice-wave-01c143d0f.3.azurestaticapps.net")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
 });
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<UserContext>();
+    try
+    {
+        db.Database.Migrate();
+        Console.WriteLine("Migraciones en BD se ejecutaron OK");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error Aplicando migraciones en BD: {ex.Message}");
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
