@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ZodType } from "zod";
+import type { ZodTypeAny } from "zod";
 import { useState } from "react";
 
 interface Option {
@@ -19,14 +19,14 @@ interface Field {
 
 interface FormProps<T extends FieldValues> {
   fields: Field[];
-  schema: ZodType<T>;
+  schema: ZodTypeAny;
   onSubmit: SubmitHandler<T>;
   recoverPassword?: { message: string; type: 'link' | 'checkbox' };
 }
 
-export function Form<T extends FieldValues>({ fields, schema, onSubmit, recoverPassword }: FormProps<T>) {
+export function Form<T extends FieldValues = FieldValues>({ fields, schema, onSubmit, recoverPassword }: FormProps<T>) {
   const { register, handleSubmit, formState: { errors } } = useForm<T>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema as any) as any,
   });
   const [showPassword, setShowPassword] = useState(false);
 
