@@ -31,7 +31,7 @@ namespace EjercicioLoginNeitekBackend.Controllers
         {
             var user = _userService.GetByEmail(loginDTO);
 
-            if (user == null) return BadRequest("Credenciales invalidas");
+            if (user == null) return Unauthorized("Credenciales invalidas");
 
             bool isPassWordCorrect = _userService.ValidatePassword(loginDTO);
 
