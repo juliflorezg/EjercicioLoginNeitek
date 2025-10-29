@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5134/api/auth";
+const API_BASE = import.meta.env.PROD ? "https://api-login-exercise-neitek.azurewebsites.net/api/auth" : "http://localhost:5134/api/auth";
 
 interface SignupData {
   email: string;
