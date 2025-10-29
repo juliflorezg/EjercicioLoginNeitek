@@ -23,6 +23,7 @@ export default function Login() {
             fields={fields}
             schema={loginSchema}
             onSubmit={login}
+            recoverPassword={{ message: "¿Olvidaste tu contraseña?", type: "link" }}
           />
         </div>
       </div>

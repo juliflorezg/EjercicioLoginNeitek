@@ -21,9 +21,10 @@ interface FormProps<T extends FieldValues> {
   fields: Field[];
   schema: ZodType<T>;
   onSubmit: SubmitHandler<T>;
+  recoverPassword?: { message: string; type: 'link' | 'checkbox' };
 }
 
-export function Form<T extends FieldValues>({ fields, schema, onSubmit }: FormProps<T>) {
+export function Form<T extends FieldValues>({ fields, schema, onSubmit, recoverPassword }: FormProps<T>) {
   const { register, handleSubmit, formState: { errors } } = useForm<T>({
     resolver: zodResolver(schema),
   });
@@ -81,9 +82,27 @@ export function Form<T extends FieldValues>({ fields, schema, onSubmit }: FormPr
           )}
         </div>
       ))}
+      {recoverPassword && (
+        <div className="flex items-center">
+          {recoverPassword.type === 'checkbox' && (
+            <div>
+
+              <input
+                type={recoverPassword.type === 'checkbox' ? 'checkbox' : 'radio'}
+                id="recover-password"
+                className="mr-2"
+              />
+              <span>{recoverPassword.message}</span>
+            </div>
+          )}
+          {recoverPassword.type === 'link' && (
+            <a className="text-sm hover:text-blue-700 hover:underline" href="/">{recoverPassword.message}</a>
+          )}
+        </div>
+      )}
       <button
         type="submit"
-        className="bg-blue-600 text-white py-3 px-4 rounded-lg w-full font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors mt-2">
+        className="bg-blue-600 text-white py-3 px-4 rounded-lg w-full font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors mt-2 cursor-pointer">
         Enviar
       </button>
     </form>
