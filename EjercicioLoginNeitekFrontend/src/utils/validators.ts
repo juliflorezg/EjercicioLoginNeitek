@@ -8,6 +8,6 @@ export const loginSchema = z.object({
 });
 
 export const signupSchema = loginSchema.extend({
-  userType: z.enum(["admin", "user"], { error: "Se requiere tipo de usuario" }),
+  userType: z.enum(["admin", "customer"], { error: "Se requiere tipo de usuario" }),
   password: z.string().min(8, "La contraseña debe tener al menos 8 caracteres"),
 });
